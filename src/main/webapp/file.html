@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload with Text Inputs</title>
+</head>
+<body>
+    <form id="uploadForm" action="api/Pic.do" method="post" enctype="multipart/form-data">
+        <!-- Text Input 1 -->
+        <label for="text1">NoteName</label>
+        <input type="text" id="text1" name="text1" required><br>
+
+		<!-- Text Input 2 -->
+        <label for="text2">NoteDescription</label>
+        <input type="text" id="text2" name="text2" required><br>
+
+		<!-- Text Input 3 -->
+        <label for="text3">Tag</label>
+        <input type="text" id="text3" name="text3" required><br>
+        
+        <label for="text4">Public</label>
+        <input type="text" id="text4" name="text4" required><br>
+        
+        <label for="text5">Account</label>
+        <input type="text" id="text5" name="text5" required><br>
+
+        <!-- File 1 -->
+        <img id="img1" style="max-width: 200px; max-height: 200px; cursor: pointer; " src="./static/uploadIcon.png" alt="Preview 1" onclick="document.getElementById('file1').click();" />
+        <input type="file" name="file1" id="file1" style="display: none;" onchange="previewImage(this, 'img1')"/><br>
+
+        <!-- File 2 -->
+        <img id="img2" style="max-width: 200px; max-height: 200px; cursor: pointer; display: block;" src="./static/uploadIcon.png" alt="Preview 2" onclick="document.getElementById('file2').click();" />
+        <input type="file" name="file2" id="file2" style="display: none;" onchange="previewImage(this, 'img2')"/><br>
+
+        <!-- File 3 -->
+        <img id="img3" style="max-width: 200px; max-height: 200px; cursor: pointer; display: block;" src="./static/uploadIcon.png" alt="Preview 3" onclick="document.getElementById('file3').click();" />
+        <input type="file" name="file3" id="file3" style="display: none;" onchange="previewImage(this, 'img3')"/><br>
+
+        <!-- Button for Submission -->
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    <script src="static/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <script>
+        function previewImage(input, previewId) {
+            const file = input.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    const preview = document.getElementById(previewId);
+                    preview.src = e.target.result;
+                };
+
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function submitForm() {
+            // Handle JSON data
+            var NoteName = $('#text1').val();
+            var NoteDescription = $('#text2').val();
+            var Tag = $('#text3').val();
+            var Public = $('#text4').val();
+            var Account = $('#text5').val();
+
+            var jsonData = {
+                "NoteName":NoteName,
+                "NoteDescription":NoteDescription,
+                "Tag":Tag,
+                "Public":Public,
+                "Account":Account  
+            };
+            $.ajax({
+                type: "POST",
+                url: "api/Note.do", // Replace with your JSON API endpoint
+                data: JSON.stringify(jsonData),
+                contentType: 'application/json',
+                success: function (response) {
+           			var res=jQuery.parseJSON(response);
+                	console.log(res);
+                	console.log(res.status);
+                    if (res.status === "200") {
+                        console.log("JSON data sent successfully");
+                        var NoteID=res.response.NoteID;
+                        console.log(NoteID);
+                        
+                        var formData = new FormData();
+                        formData.append('NoteID', NoteID);
+                        formData.append('file1', $('#file1')[0].files[0]);
+                        formData.append('file2', $('#file2')[0].files[0]);
+                        formData.append('file3', $('#file3')[0].files[0]);
+
+                        $.ajax({
+                            type: "POST",
+                            url: "api/Pic.do", // Replace with your Multipart API endpoint
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                            success: function (response) {
+                            	console.log(response);
+                                if (response.status === "200") {
+                                    console.log("Multipart data sent successfully");
+                                    // Handle success if needed
+                                }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                console.error("Error sending multipart data");
+                                console.log("jqXHR:", jqXHR);
+                                console.log("textStatus:", textStatus);
+                                console.log("errorThrown:", errorThrown);
+                                // Handle error if needed
+                            }
+                        });
+                        // Handle success if needed
+                    }
+                    else{
+                    	console.log("shit");
+                    }
+                },
+                error: function () {
+                    console.error("Error sending JSON data");
+                    console.log(jsonData);
+                    // Handle error if needed
+                }
+            });
+
+            // Handle Multipart form data
+           
+        }
+    </script>
+</body>
+</html>

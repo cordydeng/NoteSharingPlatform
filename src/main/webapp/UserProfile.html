@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css"
+        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+
+    <link rel="icon" type="image/x-icon" href="./static/image/logo.png">
+
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+    <link rel="stylesheet" type="text/css" href="./static/css/UserProfile/common.css" />
+    <link rel="stylesheet" type="text/css" href="./static/css/UserProfile/fonts.css" />
+    <link rel="stylesheet" type="text/css" href="./static/css/UserProfile/tailwind.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/sticky-js@1.3.0/dist/sticky.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/headroom.js@0.12.0/dist/headroom.min.js"></script>
+    <style>
+        .note {
+            border: 1px solid #C5C5C5;
+            /* 添加邊框 */
+            margin: 1vh 0;
+            padding: 0;
+            height: 40vh;
+            width: 20vw;
+            display: flex;
+            flex-direction: column;
+            border-radius: 5%;
+            overflow: hidden;
+            background-color: #D9D9D9;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .note p {
+            margin: 0px;
+            /* 每個段落的間距 */
+            font-family: Arial, sans-serif;
+            /* 字體 */
+        }
+
+        .note .cover-image {
+            box-sizing: border-box;
+            width: 100%;
+            height: 24vh;
+        }
+
+        .note .text-1 {
+            height: 5vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 1vh;
+            font-size: 1vw;
+            background-color: #F5F5F5;
+        }
+
+        .note .text-2 {
+            height: 5vh;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            border-radius: 1vh;
+            font-size: 1vw;
+            background-color: #F5F5F5;
+        }
+
+        .note .text-3 {
+            height: 6vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #D9D9D9;
+            font-size: 1.6vw;
+            padding: 1vh 0 1vh 0;
+        }
+
+        .note .icon-button {
+            width: 4vh;
+            height: 4vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+
+
+<body style="overflow: hidden">
+
+    <header style="display: flex;  align-items: center; background-color: #54AABB; overflow: visible;">
+        <div class="head"
+            style="width: 100vw; height: 10vh; display: flex; flex-direction: row;  justify-content: space-between; align-items: center; background-color: #54AABB; overflow: visible; padding-left: 5vh; padding-right: 5vh;">
+            <div style="display: flex; flex-direction: row; align-items: center; gap: 16px;">
+                <a href="./index.html"><img src="./static/image/logo.png" style="height: 8vh; width: 8vh;"></a>
+                <span style="color: #FFFFFF; font-size: 36px; font-weight: bolder; font-family: cursive;">MISNOTE</span>
+            </div>
+            <!-- Search Box -->
+            <div style="display: flex; flex-direction: row;justify-content: center; align-items: center; gap: 8px;">
+                <div
+                    style="height: 4vh; background-color: #F5F5F5; display: flex; justify-items: center; align-items: center; border-radius: 10px;">
+                    <input type="text" placeholder="搜尋"
+                        style=" float: none; text-align: left; padding: 8px; font-size: 18px; border-radius: 10px;">
+                </div>
+
+                <div
+                    style="width: 6vh; height: 6vh; background-color: #F5F5F5; display: flex; justify-items: center; align-items: center;">
+                    <button style="box-sizing: border-box; width: 100%; height: 100%; background-color: #F5F5F5;">
+                        <img style="box-sizing: border-box; width: 100%; height: auto;"
+                            src="./static/icon/icons8-search-64.png">
+                    </button>
+                </div>
+
+                <div class="dropdown">
+                    <button onclick="myFunction()" class="dropbtn">筆記</button>
+                    <div id="myDropdown" class="dropdown-content" style="box-sizing: border-box; width: 100%;">
+                        <button>筆記</button>
+                        <button>會員</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Buttons on Right -->
+            <div style=" display: flex; align-items: center; gap: 8px;">
+                <button style="width: 48px; height: 48px; border-radius: 50%; background-color: #F5F5F5; padding: 8px;">
+                    <img style="box-sizing: border-box; width: 100%; height: 100%;"
+                        src="./static/icon/icons8-notification-64.png">
+                </button>
+                <div class="dropdown">
+                    <button onclick="userFunction()" class="dropbtn"
+                        style="width: 48px; height: 48px; border-radius: 50%;">
+                        <img src="">
+                    </button>
+                    <div id="function_user" class="dropdown-content" style="box-sizing: border-box; width: 200%;">
+                        <button>個人資訊</button>
+                        <button>登出</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <div style="display: flex; width: 100vw; height: 90vh; background: #FFFFFF;">
+        <!--左側User Information -->
+        <div class="user-info"
+            style="width: 25vw; height: 90vh; background-color: #F5F5F5; padding: 0vh 5vh 0 5vh; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 1vh;">
+
+            <!-- User Thumbnail -->
+            <div class="image-container"
+                style="width: 100%; height: 16vw; display: flex; justify-content: center; align-items: center; margin-top: 0;">
+                <img class="object-cover" style="width: 16vw; height: 16vw; background-color: white;"
+
+                    src="./static/image/no-user.png" />
+
+            </div>
+            <!-- User Name -->
+            <div class="username-container"
+                style="display: flex; justify-content: center; align-items: center; font-size: 32px; font-weight: bold; color: #000000; margin-top: 5%; background:rgb(113,196,200); border-radius: 20px;padding: 2% 3%;">
+                <h1>
+                    ？？？ <!-- Replace ????? with the actual username -->
+                </h1>
+            </div>
+            <!-- Data Fields -->
+            <div class="notecounts-container"
+                style="display: flex; justify-content: center; align-items: center; font-size: 24px; font-weight: bold; color: #000000; margin-top: 10%; background:rgb(113,196,200); border-radius: 20px; padding: 2% 4%;">
+                <h1>
+                    筆記數：<span id="notesCount">？？？</span>
+                </h1>
+            </div>
+
+
+            <!-- 2nd -->
+            <div
+                style=" width: 74.17%; height: auto; display: flex; justify-content: space-evenly; align-items: center; position: relative;">
+                <a href="UserEdit.html" style="text-decoration: none;">
+                    <button
+                        style="display: flex; flex-direction: column; align-items: center; background-color: #FFBABA; border-radius: 40px; width: 210px; height: 55px; position: relative; margin-top: 30%; justify-content: center; padding: 20px; border:#D9D9D9 1.5px solid">
+                        <h1
+                            style="display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 24px; font-family: Inter, sans-serif; color: white; text-align: center; width: 150px; height:5px;">
+                            修改資訊
+                        </h1>
+                    </button>
+                </a>
+            </div>
+        </div>
+        <!-- 右側內容 -->
+
+        <div class="view"
+            style="width: 75vw; height: 90vh; display: flex; flex-direction: row; flex-wrap: wrap; overflow: auto; justify-content: center; gap: 1vw;">
+
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        function getHTML(template) {
+            return template.join('\n');
+        }
+        // 初始化 AOS 和 Sticky 插件
+        AOS.init();
+        new Sticky('.sticky-effect');
+
+        // 初始化 Headroom 插件
+        const header = document.querySelector("#header");
+        if (header) {
+            const headroom = new Headroom(header);
+            headroom.init();
+        }
+
+        //獲取用戶資料
+        function fetchUserData() {
+            $.ajax({
+                url: '您的後端API接口URL/api/user/用户ID',
+                type: 'GET',
+                success: function (data) {
+                    $('#username').text(data.username);
+                },
+                error: function (error) {
+                    console.error('獲取用戶資訊時出錯:', error);
+                    $('#username').text('?????');
+                }
+            });
+        }
+        //獲取筆記數
+        function fetchNotesNum() {
+            $.ajax({
+                url: '您的後端API接口URL/api/likes-notes/用户ID',
+                type: 'GET',
+                success: function (data) {
+                    $('#notesCount').text(data.notesCount);
+                },
+                error: function (error) {
+                    console.error('獲取數據時出錯:', error);
+                    $('#notesCount').text('???');
+                }
+            });
+        }
+
+        fetchUserData();
+        fetchNotesNum();
+
+        // 假設的用戶筆記數據
+        const notesData = [
+
+            { note_id: 1, author: "John Doe", title: "Note 1", likes: 10, category: "Technology", uploadTime: new Date('2023-01-01') },
+            { note_id: 2, author: "Jane Smith", title: "Note 2", likes: 5, category: "Science", uploadTime: new Date('2023-02-15') },
+            { note_id: 3, author: "Jane Smith", title: "Note 3", likes: 3, category: "Science", uploadTime: new Date('2023-02-14') },
+
+
+            // ...其他筆記
+        ];
+
+        function renderNotes(container, notes) {
+            console.log("Rendering notes:", notes);
+            container.innerHTML = ''; // 清空之前的內容
+
+            notes.forEach(note => {
+
+                var noteHtmlArray = [
+                    '<a style="text-decoration: none; color: inherit;" href=./NoteView.html?noteid=' + note.note_id + '>',
+                    '<div class="note">',
+                    '    <!-- 標籤名稱 -->',
+                    '    <p class="text-1" style="box-sizing: border-box; width: 100%;">' + note.category + '</p>',
+                    '    <!-- 圖片預覽 -- 我覺得如果能利用迴圈改圖檔名稱就可行 -->',
+                    '    <img class="cover-image" src="">',
+                    '    <!-- 筆記名稱 -->',
+                    '    <p class="text-3" style="box-sizing: border-box; width: 100%;">' + note.title + '</p>',
+                    '    <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; padding: 0 1vw 0 1vw; background-color: #F5F5F5;">',
+                    '        <!-- 功能選單 -->',
+                    '        <div class="text-2" style="box-sizing: border-box; width: 60% display: flex; flex-direction: row; gap: 0.50vw; justify-content: center; align-items: center; ">',
+                    '            <img class="icon-button" src=./static/icon/icons8-edit-64.png>',
+                    '            <img class="icon-button" src=./static/icon/icons8-delete-64.png>',
+                    '</div>',
+                    '<!-- 最新日期 -->',
+                    '<p class="text-1" style="box-sizing: border-box; width: 30%;">' + note.uploadTime.toLocaleString() + '</p>',
+                    '</div>',
+                    '</div>',
+                    '<a>',
+                ];
+
+                container.innerHTML += getHTML(noteHtmlArray);
+            });
+        }
+
+        function sortByTime(notes) {
+            return notes.sort((a, b) => b.uploadTime - a.uploadTime);
+        }
+
+
+        // 自動在頁面加載時顯示用戶的筆記
+        const viewContainer = document.querySelector('.view');
+        renderNotes(viewContainer, sortByTime(notesData));
+    </script>
+
+
+</body>
+
+</html>

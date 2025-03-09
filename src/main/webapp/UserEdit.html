@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css"
+        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+    <link rel="stylesheet" type="text/css" href="./static/css/UserEdit/common.css" />
+    <link rel="stylesheet" type="text/css" href="./static/css/UserEdit/fonts.css" />
+    <link rel="stylesheet" type="text/css" href="./static/css/UserEdit/tailwind.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/sticky-js@1.3.0/dist/sticky.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/headroom.js@0.12.0/dist/headroom.min.js"></script>
+    <style>
+        input[type="text"],
+        input[type="password"],
+        input[type="name"] {
+            border: 1.5px solid gray;
+            /* 較淺色的邊框 */
+            padding: 5px;
+            /* 較多的內邊距 */
+            margin-top: 5px;
+            /* 上邊距 */
+            margin-bottom: 5px;
+            /* 下邊距 */
+            border-radius: 8px;
+            /* 圓角 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* 細微的陰影 */
+            font-size: 14px;
+            /* 字體大小 */
+            color: #333;
+            /* 字體顏色 */
+            background-color: white;
+            /* 淺灰色背景 */
+            font-family: 'Inter', sans-serif;
+        }
+
+        input:focus {
+            border-color: black;
+            /* 焦點時的邊框顏色 */
+            box-shadow: 0 0 3px #54AABB;
+            /* 焦點時的陰影 */
+        }
+
+        .view {
+            width: 80%;
+            max-height: 90vh;
+            overflow-y: hidden;
+            background-color: #D9D9D9;
+            padding: 10%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .rounded-box {
+            background-color: white;
+            /* 白色背景 */
+            padding: 30px;
+            /* 內邊距 */
+            border-radius: 15px;
+            /* 圓角 */
+            width: 50%;
+            flex: 1;
+            margin-right: auto;
+            /* 水平居中 */
+            margin-left: auto;
+            /* 水平居中 */
+
+        }
+
+        .section-header {
+            font-size: 16px;
+            color: #000000;
+            margin-bottom: 22px;
+            padding: 4px;
+            width: 200px;
+            background: rgb(113, 196, 200);
+            border-radius: 20px;
+            text-align: center;
+            display: block;
+            /* 讓標題作為區塊元素顯示 */
+            margin-left: auto;
+            /* 自動邊距 */
+            margin-right: auto;
+            /* 自動邊距 */
+        }
+
+        .section-header,
+        .font-normal {
+            font-weight: bold;
+            color: #2e2f2f;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .button_img_container {
+            display: flex;
+            justify-content: center;
+            /* Center horizontally */
+            align-items: center;
+            /* Center vertically */
+            margin-top: 8px;
+        }
+
+        .button_img {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 8px;
+            border: 1.8px solid black;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            /* This creates the circular shape */
+            width: 48px;
+            /* Adjust size as needed */
+            height: 48px;
+            /* Adjust size as needed */
+            background-color: white;
+            /* Adjust background color as needed */
+        }
+
+        .button_img img {
+            width: 80%;
+            height: auto;
+        }
+
+        .button_img:active {
+            transform: scale(0.95);
+            /* Shrink the button when clicked */
+        }
+    </style>
+</head>
+
+
+<body>
+    <header style="display: flex;  align-items: center; background-color: #54AABB; overflow: visible;">
+        <div class="head"
+            style="width: 100vw; height: 10vh; display: flex; flex-direction: row;  justify-content: space-between; align-items: center; background-color: #54AABB; overflow: visible; padding-left: 5vh; padding-right: 5vh;">
+            <div style="display: flex; flex-direction: row; align-items: center; gap: 16px;">
+                <a href="./index.html"><img src="./static/image/logo.png" style="height: 8vh; width: 8vh;"></a>
+                <span style="color: #FFFFFF; font-size: 36px; font-weight: bolder; font-family: cursive;">MISNOTE</span>
+            </div>
+            <!-- Search Box -->
+            <div style="display: flex; flex-direction: row;justify-content: center; align-items: center; gap: 8px;">
+                <div
+                    style="height: 4vh; background-color: #F5F5F5; display: flex; justify-items: center; align-items: center; border-radius: 10px;">
+                    <input type="text" placeholder="搜尋"
+                        style=" float: none; text-align: left; padding: 8px; font-size: 18px; border-radius: 10px;">
+                </div>
+
+                <div
+                    style="width: 6vh; height: 6vh; background-color: #F5F5F5; display: flex; justify-items: center; align-items: center;">
+                    <button style="box-sizing: border-box; width: 100%; height: 100%; background-color: #F5F5F5;">
+                        <img style="box-sizing: border-box; width: 100%; height: auto;"
+                            src="./static/icon/icons8-search-64.png">
+                    </button>
+                </div>
+
+                <div class="dropdown">
+                    <button onclick="myFunction()" class="dropbtn">筆記</button>
+                    <div id="myDropdown" class="dropdown-content" style="box-sizing: border-box; width: 100%;">
+                        <button>筆記</button>
+                        <button>會員</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Buttons on Right -->
+            <div style=" display: flex; align-items: center; gap: 8px;">
+                <button style="width: 48px; height: 48px; border-radius: 50%; background-color: #F5F5F5; padding: 8px;">
+                    <img style="box-sizing: border-box; width: 100%; height: 100%;"
+                        src="./static/icon/icons8-notification-64.png">
+                </button>
+                <div class="dropdown">
+                    <button onclick="userFunction()" class="dropbtn"
+                        style="width: 48px; height: 48px; border-radius: 50%;">
+                        <img src="">
+                    </button>
+                    <div id="function_user" class="dropdown-content" style="box-sizing: border-box; width: 200%;">
+                        <button>個人資訊</button>
+                        <button>登出</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div style="display: flex; width: 100%; height: 90vh; background: yellow;">
+        <!--左側User Information -->
+        <div class="user-info"
+            style="width: 20%; height: 90vh; background-color: white; padding: 0vh 5vh 0 5vh; display: flex; flex-direction: column;align-items: center; gap: 1vh;">
+            <!-- User Thumbnail -->
+            <div class="image-container"
+                style="width: 100%; height: 16vw; display: flex; justify-content: center; align-items: center; margin-top: 0;">
+                <img class="object-cover" style="width: 16vw; height: 16vw; background-color: white;"
+                    src="./static/icon/profilepic.jpg" />
+            </div>
+            <!-- User Name -->
+            <div class="username-container"
+                style="display: flex; justify-content: center; align-items: center; font-size: 32px; font-weight: bold; color: #000000; margin-top: 5%; background:rgb(113,196,200); border-radius: 20px;padding: 2% 3%;">
+                <h1>
+                    ？？？ <!-- Replace ????? with the actual username -->
+                </h1>
+            </div>
+            <!-- Data Fields -->
+            <div class="notecounts-container"
+                style="display: flex; justify-content: center; align-items: center; font-size: 24px; font-weight: bold; color: #000000; margin-top: 10%; background:rgb(113,196,200); border-radius: 20px; padding: 2% 4%;">
+                <h1>
+                    筆記數：<span id="notesCount">？？？</span>
+                </h1>
+            </div>
+
+
+            <!-- 2nd -->
+            <div
+                style=" width: 74.17%; height: auto; display: flex; justify-content: space-evenly; align-items: center; position: relative;">
+                <a href="UserEdit.html" style="text-decoration: none;">
+                    <button
+                        style="display: flex; flex-direction: column; align-items: center; background-color: #FFBABA; border-radius: 40px; width: 210px; height: 55px; position: relative; margin-top: 40%; justify-content: center; padding: 20px; border:#D9D9D9 1.5px solid">
+                        <h1
+                            style="display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 24px; font-family: Inter, sans-serif; color: white; text-align: center; width: 150PX; height:5px;">
+                            修改資訊
+                        </h1>
+                    </button>
+                </a>
+            </div>
+        </div>
+        <!-- 右側內容 -->
+        <div class="view">
+            <div style="display: flex; flex-direction: row; gap: 30px;flex: 1;">
+                <!-- 修改用戶名稱區塊 -->
+                <div class="rounded-box">
+                    <h2 class="section-header">修改用戶名稱</h2>
+                    <!-- 新用戶名稱輸入 -->
+                    <div class="flex flex-col w-full relative">
+                        <div
+                            class="font-normal text-[12px] leading-none font-BIZUDGothic text-[rgb(51,51,51)] tracking-[0.3px] w-auto h-auto mx-4">
+                            新用戶名稱:
+                        </div>
+                        <div
+                            class="flex flex-col bg-neutral-100 rounded-md outline outline-[rgb(217,217,217)] outline-[0.5px] outline-offset-[-0.5px] w-full relative">
+                            <div
+                                class="rounded-md w-auto flex justify-between items-center content-start gap-x-2 relative">
+                                <div class="flex flex-col w-full relative min-w-0 ml-4 mr-4">
+                                    <div class="flex flex-col w-auto relative">
+                                        <input type="text" placeholder="請輸入新的用戶名" id="new_name" name="new_name"
+                                            class="flex items-end font-normal text-[18px] leading-[1.33] font-Roboto text-[rgb(128,128,128)] w-auto h-auto bg-none input">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 驗證密碼 -->
+                    <div class="flex flex-col w-full h-auto relative">
+                        <div
+                            class="font-normal text-[12px] leading-none font-BIZUDGothic text-[rgb(51,51,51)] tracking-[0.3px] w-auto h-auto mx-4">
+                            密碼:
+                        </div>
+                    </div>
+                    <div class="flex flex-col bg-neutral-100 rounded-md relative">
+                        <div class="rounded-md w-auto flex justify-between items-center content-start gap-x-2 relative">
+                            <div class="flex flex-col w-full relative min-w-0 ml-4 mr-4">
+                                <div class="flex flex-col w-auto relative">
+                                    <input type="password" placeholder="請輸入密碼" id="new_name_password" name="member_password"
+                                        class="flex items-end font-normal text-[18px] leading-[1.33] font-Roboto text-[rgb(128,128,128)] w-auto h-auto input" />
+                                    <!-- 顯示密碼 -->
+                                    <button
+                                        class="w-8 h-8 p-0 bg-transparent border-none focus:outline-none absolute top-1/2 transform -translate-y-1/2 right-0 mt-2 mr-3"
+                                        onclick="togglePasswordVisibility('old_password', 'eyeIcon2')">
+                                        <img class="w-full h-full object-cover" src="./static/icon/simple_eye_icon.png"
+                                            alt="alt text" id="eyeIcon1" />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button_img_container">
+                        <button onclick="updateUsername()" class="button_img">
+                            <img src="./img/plane.jpeg" alt="change" id="change" />
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 修改密碼區塊 -->
+                <div class="rounded-box">
+                    <h2 class="section-header">修改密碼</h2>
+
+                    <!-- 驗證舊密碼 -->
+                    <div class="flex flex-col w-full h-auto relative">
+                        <div
+                            class="font-normal text-[12px] leading-none font-BIZUDGothic text-[rgb(51,51,51)] tracking-[0.3px] w-auto h-auto mx-4">
+                            舊密碼:
+                        </div>
+                    </div>
+                    <div class="flex flex-col bg-neutral-100 rounded-md relative">
+                        <div class="rounded-md w-auto flex justify-between items-center content-start gap-x-2 relative">
+                            <div class="flex flex-col w-full relative min-w-0 ml-4 mr-4">
+                                <div class="flex flex-col w-auto relative">
+                                    <input type="password" placeholder="請輸入舊密碼" id="old_password" name="member_password"
+                                        class="flex items-end font-normal text-[18px] leading-[1.33] font-Roboto text-[rgb(128,128,128)] w-auto h-auto input" />
+                                    <!-- 顯示密碼 -->
+                                    <button
+                                        class="w-8 h-8 p-0 bg-transparent border-none focus:outline-none absolute top-1/2 transform -translate-y-1/2 right-0 mt-2 mr-3"
+                                        onclick="togglePasswordVisibility('old_password', 'eyeIcon2')">
+                                        <img class="w-full h-full object-cover" src="./static/icon/simple_eye_icon.png"
+                                            alt="alt text" id="eyeIcon2" />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 輸入新密碼 -->
+                    <div class="flex flex-col w-full h-auto relative">
+                        <div
+                            class=" font-normal text-[12px] leading-none font-BIZUDGothic text-[rgb(51,51,51)] tracking-[0.3px] w-auto h-auto mx-4">
+                            新密碼:
+                        </div>
+                    </div>
+                    <div class="flex flex-col bg-neutral-100 rounded-md relative">
+                        <div class="rounded-md w-auto flex justify-between items-center content-start gap-x-2 relative">
+                            <div class="flex flex-col w-full relative min-w-0 ml-4 mr-4">
+                                <div class="flex flex-col w-auto relative">
+                                    <input type="password" placeholder="請輸入新密碼" id="new_password" name="member_password"
+                                        class="flex items-end font-normal text-[18px] leading-[1.33] font-Roboto text-[rgb(128,128,128)] w-auto h-auto input" />
+                                    <!-- 顯示密碼 -->
+                                    <button
+                                        class="w-8 h-8 p-0 bg-transparent border-none focus:outline-none absolute top-1/2 transform -translate-y-1/2 right-0 mt-2 mr-3"
+                                        onclick="togglePasswordVisibility('new_password', 'eyeIcon3')">
+                                        <img class="w-full h-full object-cover" src="./static/icon/simple_eye_icon.png"
+                                            alt="alt text" id="eyeIcon3" />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 驗證新密碼 -->
+                    <div class="flex flex-col w-full h-auto relative">
+                        <div
+                            class="font-normal text-[12px] leading-none font-BIZUDGothic text-[rgb(51,51,51)] tracking-[0.3px] w-auto h-auto mx-4">
+                            驗證新密碼:
+                        </div>
+                    </div>
+                    <div class="flex flex-col bg-neutral-100 rounded-md relative">
+                        <div class="rounded-md w-auto flex justify-between items-center content-start gap-x-2 relative">
+                            <div class="flex flex-col w-full relative min-w-0 ml-4 mr-4">
+                                <div class="flex flex-col w-auto relative">
+                                    <input type="password" placeholder="請輸入新密碼" id="confirm_new_password"
+                                        name="member_password"
+                                        class="flex items-end font-normal text-[18px] leading-[1.33] font-Roboto text-[rgb(128,128,128)] w-auto h-auto input" />
+                                    <!-- 顯示密碼 -->
+                                    <button
+                                        class="w-8 h-8 p-0 bg-transparent border-none focus:outline-none absolute top-1/2 transform -translate-y-1/2 right-0 mt-2 mr-3"
+                                        onclick="togglePasswordVisibility('confirm_new_password', 'eyeIcon4')">
+                                        <img class="w-full h-full object-cover" src="./static/icon/simple_eye_icon.png"
+                                            alt="alt text" id="eyeIcon4" />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button_img_container">
+                        <button onclick="updatePassword()" class="button_img">
+                            <img src="./img/plane.jpeg" alt="change" id="change" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            // 初始化 AOS 和 Sticky 插件
+            AOS.init();
+            new Sticky('.sticky-effect');
+
+            // 初始化 Headroom 插件
+            const header = document.querySelector("#header");
+            if (header) {
+                const headroom = new Headroom(header);
+                headroom.init();
+            }
+
+            //獲取用戶資料
+            function fetchUserData() {
+                $.ajax({
+                    url: '您的後端API接口URL/api/user/用户ID',
+                    type: 'GET',
+                    success: function (data) {
+                        $('#username').text(data.username);
+                    },
+                    error: function (error) {
+                        console.error('獲取用戶資訊時出錯:', error);
+                        $('#username').text('?????');
+                    }
+                });
+            }
+            //獲取筆記數
+            function fetchNotesNum() {
+                $.ajax({
+                    url: '您的後端API接口URL/api/likes-notes/用户ID',
+                    type: 'GET',
+                    success: function (data) {
+                        $('#notesCount').text(data.notesCount);
+                    },
+                    error: function (error) {
+                        console.error('獲取數據時出錯:', error);
+                        $('#notesCount').text('???');
+                    }
+                });
+            }
+
+            fetchUserData();
+            fetchNotesNum();
+
+            function togglePasswordVisibility(fieldId, eyeIconId) {
+                var field = document.getElementById(fieldId);
+                var eyeIcon = document.getElementById(eyeIconId);
+                if (field.type === "password") {
+                    field.type = "text";
+                    eyeIcon.src = "./static/icon/simple_eye_icon.png";
+                } else {
+                    field.type = "password";
+                    eyeIcon.src = "./static/icon/simple_eye_icon.png"; //
+                }
+            }
+            function updateUsername() {
+                var newUsername = $("#new_name").val();
+                var newPassword = $("#new_name_password").val();
+
+                // 密碼格式驗證，至少 8 個字符，包含一個數字和一個字母
+                var passwordPattern = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
+
+                if (!passwordPattern.test(newPassword)) {
+                    alert('密碼需至少包含 8 個字符，包含一個數字和一個字母。');
+                    return;
+                }
+
+                // 使用Ajax發送POST請求以更新用戶名
+                $.ajax({
+                    type: "POST",
+                    url: "您的更新用戶名API的URL",
+                    data: JSON.stringify({ newUsername: newUsername }),
+                    contentType: "application/json",
+                    success: function (data) {
+                        alert('用戶名已更新');
+                    },
+                    error: function (error) {
+                        console.error('更新用戶名時出錯:', error);
+                        alert('無法更新用戶名');
+                    }
+                });
+            }
+
+            function updatePassword() {
+                var oldPassword = $("#old_password").val();
+                var newPassword = $("#new_password").val();
+                var confirmPassword = $("#confirm_new_password").val();
+
+                // 密碼格式驗證，至少 8 個字符，包含一個數字和一個字母
+                var passwordPattern = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
+
+                // 使用Ajax發送GET請求以驗證old_password的正確性
+                $.ajax({
+                    type: "GET",
+                    url: "您的驗證old_password的API的URL",
+                    data: { oldPassword: oldPassword },
+                    success: function (data) {
+                        if (data.valid === true) {
+                            // old_password 正確，繼續執行密碼更新操作
+
+                            // 檢查舊密碼是否等於新密碼
+                            if (oldPassword === newPassword) {
+                                alert('新密碼不能與舊密碼相同');
+                                return;
+                            }
+
+                            // 檢查新密碼和確認密碼是否匹配
+                            if (newPassword !== confirmPassword) {
+                                alert('新密碼和確認密碼不匹配');
+                                return;
+                            }
+
+                            // 檢查新密碼是否符合格式要求
+                            if (!passwordPattern.test(newPassword)) {
+                                alert('新密碼格式不正確，請確保密碼至少包含 8 個字符，包含一個數字和一個字母。');
+                                return;
+                            }
+
+                            // 使用Ajax發送POST請求以更新密碼
+                            $.ajax({
+                                type: "POST",
+                                url: "您的更新密碼的API的URL",
+                                data: JSON.stringify({
+                                    oldPassword: oldPassword,
+                                    newPassword: newPassword,
+                                    confirmPassword: confirmPassword
+                                }),
+                                contentType: "application/json",
+                                success: function (data) {
+                                    alert('密碼已更新');
+                                },
+                                error: function (error) {
+                                    console.error('更新密碼時出錯:', error);
+                                    alert('無法更新密碼');
+                                }
+                            });
+                        } else {
+                            // old_password 錯誤，顯示錯誤消息
+                            alert('舊密碼不正確');
+                        }
+                    },
+                    error: function (error) {
+                        console.error('驗證 old_password 時出錯:', error);
+                        alert('無法驗證舊密碼');
+                    }
+                });
+            }
+
+        </script>
+
+
+
+</body>
+
+</html>
