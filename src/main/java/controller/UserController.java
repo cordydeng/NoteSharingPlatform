@@ -99,7 +99,7 @@ public class UserController extends HttpServlet {
             	}
             	else
             	{
-            		 String resp = "{\"status\": \'400\', \"message\": \'新增帳號失敗，此帳號重複！\', \'response\': \'\'}";
+            		 String resp = "{\"status\": \'400\', \"message\": \'新增帳號失敗，此帳號重複\', \'response\': \'\'}";
                      jsr.response(resp, response);
             	}
             }
